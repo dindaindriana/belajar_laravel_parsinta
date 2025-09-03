@@ -25,3 +25,5 @@ Route::get('/contact', [Controllers\ContactController::class, 'index']);
 Route::get('/gallery', [Controllers\GalleryController::class, 'index']);
 
 Route::get('/users', [Controllers\UserController::class, 'index']);
+
+Route::get('/users/create', [Controllers\UserController::class, 'create']);
