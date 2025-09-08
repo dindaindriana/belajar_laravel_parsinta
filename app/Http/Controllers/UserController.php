@@ -24,7 +24,17 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        User::create($request->only( 'name', 'email', 'password'));
+        // $validated = $request -> validate([
+        //     'name' => ['required', 'min:3', 'max:255', 'string'],
+        //     'email' => ['required', 'email'],
+        //     'password' => ['required', 'min:8'],
+        // ]); ini bisa langsung dimasukkan ke baris dibawah ini
+
+        User::create($request -> validate([
+            'name' => ['required', 'min:3', 'max:255', 'string'],
+            'email' => ['required', 'email'],
+            'password' => ['required', 'min:8'],
+        ]));
 
         return redirect('/users');
         // dd($request->only( 'name', 'email', 'password')); //dd ini untuk ngecek apakah datanya berhasil dikirim
