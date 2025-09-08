@@ -31,16 +31,4 @@ Route::get('/users/create', [Controllers\UserController::class, 'create']);
 
 Route::post('/users', [Controllers\UserController::class, 'store']);
 
-
-
-// Route::get('articles/create', function(){
-//     Article::create([
-//         'title' => $title = 'My firts article',
-//         'slug' => str($title)->slug(),
-//         'body' => $body = 'This is the body of my first article',
-//         'teaser' => $teaser = str($body)->limit(150),
-//         'meta_title' => $title,
-//         'meta_description' => $teaser
-
-//     ]);
-// }); //ini adalah cara manual untuk memasukkan data kedalam database, ketika sudah seperti ini harus didefinisiskan lagi ke dalam modelnya ($fillable)
+Route::get('/users/{user}', [Controllers\UserController::class, 'show']);

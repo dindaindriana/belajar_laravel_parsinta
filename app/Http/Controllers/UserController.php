@@ -20,16 +20,10 @@ class UserController extends Controller
     public function create()
     {
         return view('users.create');
-    }
+    }           
 
     public function store(Request $request)
     {
-        // $validated = $request -> validate([
-        //     'name' => ['required', 'min:3', 'max:255', 'string'],
-        //     'email' => ['required', 'email'],
-        //     'password' => ['required', 'min:8'],
-        // ]); ini bisa langsung dimasukkan ke baris dibawah ini
-
         User::create($request -> validate([
             'name' => ['required', 'min:3', 'max:255', 'string'],
             'email' => ['required', 'email'],
@@ -37,6 +31,16 @@ class UserController extends Controller
         ]));
 
         return redirect('/users');
-        // dd($request->only( 'name', 'email', 'password')); //dd ini untuk ngecek apakah datanya berhasil dikirim
     }
+
+    public function show(User $user)
+    {
+        // $user = User::findOrFail($id); //findOrFail ini ketika data tidak ditemukanmaka akan muncul 404 secara otomatis, tapi akanlebih simpel kalau kita pakai model binding
+
+        // abort_if(!$user, 404); //ini adalah ketika id tidak ditemukan maka akan 404 not found akan lebih singkat akalau pakai findOrFail
+        
+        return view('users/show',[
+            'user' => $user,
+        ]);
+    }   
 }
