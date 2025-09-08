@@ -9,7 +9,6 @@
 
 
 @if ($as === 'button')
-//merge pada atribut inibuat agar jika kita mau menimpa warna button dengan warna lain maka stylenya tidak bakal ilang
     <button type="{{ $type }}" {{ $attributes->merge(['class' => $classes]) }}>
         {{ $slot }}
     </button>

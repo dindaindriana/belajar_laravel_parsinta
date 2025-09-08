@@ -13,12 +13,20 @@ class UserController extends Controller
     {
         $users = User::query()->latest()->get();
         return view('users.index', [
-            'users' =>$users
+            'users' => $users
         ]);
     }
 
     public function create()
     {
         return view('users.create');
+    }
+
+    public function store(Request $request)
+    {
+        User::create($request->only( 'name', 'email', 'password'));
+
+        return redirect('/users');
+        // dd($request->only( 'name', 'email', 'password')); //dd ini untuk ngecek apakah datanya berhasil dikirim
     }
 }
