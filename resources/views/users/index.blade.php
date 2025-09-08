@@ -33,7 +33,10 @@
                         {{-- <x-td>{{ $user->created_at->format('d M Y') }}</x-td> --}}
                         <x-table.td>{{ $user->created_at->diffForhumans() }}</x-table.td>
                         <x-table.td>
-                            <a href="/users/{{ $user->id }}">View</a>
+                            <div class="flex justify-end gap-x-2">
+                                <a href="/users/{{ $user->id }}" class="hover:underline">View</a>
+                                <a href="/users/{{ $user->id }}/edit" class="hover:underline">Edit</a>
+                            </div>
                         </x-table.td>
                     </tr>
                 @endforeach

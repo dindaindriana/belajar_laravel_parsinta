@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+use PHPUnit\Framework\MockObject\Stub\ReturnSelf;
 
 class UserController extends Controller
 {
@@ -19,28 +19,57 @@ class UserController extends Controller
 
     public function create()
     {
-        return view('users.create');
+        return view('users.form',[
+            'user' => new User(),
+            'page_meta' => [
+                'title' => 'Create new user',
+                'method' => 'post',
+                'url' => '/users',
+                'submit_text' => 'Create'
+            ]
+        ]);
     }           
 
     public function store(Request $request)
     {
-        User::create($request -> validate([
-            'name' => ['required', 'min:3', 'max:255', 'string'],
-            'email' => ['required', 'email'],
-            'password' => ['required', 'min:8'],
-        ]));
+        User::create($request -> validate($this->requestValidated()));
 
         return redirect('/users');
     }
 
     public function show(User $user)
     {
-        // $user = User::findOrFail($id); //findOrFail ini ketika data tidak ditemukanmaka akan muncul 404 secara otomatis, tapi akanlebih simpel kalau kita pakai model binding
-
-        // abort_if(!$user, 404); //ini adalah ketika id tidak ditemukan maka akan 404 not found akan lebih singkat akalau pakai findOrFail
-        
-        return view('users/show',[
+        return view('users.show',[
             'user' => $user,
         ]);
-    }   
+    } 
+
+    public function edit(User $user)
+    {
+        return view('users.form',[
+            'user' => $user,
+            'page_meta' => [
+                'title' => 'Edit user: ' . $user->name,
+                'method' => 'put',
+                'url' => '/users/' . $user->id,
+                'submit_text' => 'Update',
+            ]
+        ]);
+    }
+
+    public function update(Request $request, User $user)
+    {
+        $user->update($request -> validate($this->requestValidated()));
+
+        return redirect('/users');
+    }
+
+    protected function requestValidated(): array //buat funtion ini agar tidak ada pengulangan, jadi pada funtiion update dan store tinggal panggil saja
+    {
+        return [
+            'name' => ['required', 'min:3', 'max:255', 'string'],
+            'email' => ['required', 'email'],
+            'password' => ['required', 'min:8'],
+        ];
+    }
 }
