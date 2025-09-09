@@ -11,10 +11,10 @@
                         {{-- @dump(request()->is('about')) jika pakai cara seperti ini kita harus terus terusan definisikan utuk setiap nav menu--}}
                         <!-- Current: "bg-zinc-900 text-white", Default: "text-zinc-300 hover:bg-white/5 hover:text-white" -->
                         <x-navbar.link href="/">Home</x-navbar.link>
-                        <x-navbar.link href="/about">About</x-navbar.link>  
-                        <x-navbar.link href="/contact">Contact</x-navbar.link>
-                        <x-navbar.link href="/gallery">Gallery</x-navbar.link>
-                        <x-navbar.link href="/users">Users</x-navbar.link>
+                        <x-navbar.link href="{{ route('about') }}">About</x-navbar.link>  
+                        <x-navbar.link href="{{ route('contact') }}">Contact</x-navbar.link>
+                        <x-navbar.link href="{{ route('gallery') }}">Gallery</x-navbar.link>
+                        <x-navbar.link href="{{ route('users.index') }}">Users</x-navbar.link>
                     </div>  
                 </div>
             </div>
@@ -44,9 +44,10 @@
         <div class="space-y-1 px-2 pt-2 pb-3 sm:px-3">
             <!-- Current: "bg-zinc-900 text-white", Default: "text-zinc-300 hover:bg-white/5 hover:text-white" -->
             <x-navbar.dropdown-item href="/">Home</x-navbar.dropdown-item>
-            <x-navbar.dropdown-item href="/about">About</x-navbar.dropdown-item>
-            <x-navbar.dropdown-item href="/contact">Contact</x-navbar.dropdown-item>
-            <x-navbar.dropdown-item href="/gallery">Gallery</x-navbar.dropdown-item>
+            <x-navbar.dropdown-item href="{{ route('about') }}">About</x-navbar.dropdown-item>
+            <x-navbar.dropdown-item href="{{ route('contact') }}">Contact</x-navbar.dropdown-item>
+            <x-navbar.dropdown-item href="{{ route('gallery') }}">Gallery</x-navbar.dropdown-item>
+            <x-navbar.dropdown-item href="{{ route('users.index') }}">User  </x-navbar.dropdown-item>
         </div>
     </div>
 </nav>
