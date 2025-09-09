@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\DB;
 use PHPUnit\Framework\MockObject\Stub\ReturnSelf;
 
@@ -30,9 +31,9 @@ class UserController extends Controller
         ]);
     }           
 
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        User::create($request -> validate($this->requestValidated()));
+        User::create($request -> validated());
 
         return redirect('/users');
     }
@@ -57,19 +58,15 @@ class UserController extends Controller
         ]);
     }
 
-    public function update(Request $request, User $user)
+    public function update(UserRequest $request, User $user)
     {
-        $user->update($request -> validate($this->requestValidated()));
+        $user->update($request -> validated());
 
         return redirect('/users');
     }
 
-    protected function requestValidated(): array //buat funtion ini agar tidak ada pengulangan, jadi pada funtiion update dan store tinggal panggil saja
-    {
-        return [
-            'name' => ['required', 'min:3', 'max:255', 'string'],
-            'email' => ['required', 'email'],
-            'password' => ['required', 'min:8'],
-        ];
-    }
+    // protected function requestValidated(): array //buat funtion ini agar tidak ada pengulangan, jadi pada funtiion update dan store tinggal panggil saja
+    // {
+    //     return 
+    // } //function ini di hapus karna sudah membuat UserRequest sendiri
 }
