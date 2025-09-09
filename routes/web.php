@@ -13,21 +13,9 @@ Route::get('/contact', [Controllers\ContactController::class, 'index'])->name('c
 Route::get('/gallery', [Controllers\GalleryController::class, 'index'])->name('gallery');
 
 
-// Route::get('/users', [Controllers\UserController::class, 'index'])->name('users.index');
+Route::resource('users', Controllers\UserController::class)->middleware('auth'); 
 
-// Route::get('/users/create', [Controllers\UserController::class, 'create'])->name('users.create');
+Route::get('login',[Controllers\LoginController::class, 'loginForm'])->name('login')->middleware('guest'); //Middleware guest artinya route ini hanya bisa diakses oleh user yang belum login (guest)
+Route::post('login', [Controllers\LoginController::class, 'authenticate'])->middleware('guest');
 
-// Route::post('/users', [Controllers\UserController::class, 'store'])->name('users.store');
-
-// Route::get('/users/{user:id}', [Controllers\UserController::class, 'show'])->name('users.show');
-
-// Route::get('/users/{user:id}/edit', [Controllers\UserController::class, 'edit'])->name('users.edit');
-
-// Route::put('/users/{user:id}', [Controllers\UserController::class, 'update'])->name('users.update');
-
-// Route::delete('/users/{user:id}', [Controllers\UserController::class, 'destroy'])->name('users.destroy');
-
-Route::resource('users', Controllers\UserController::class); // dengan menggunakan route recourse Laravel otomatis bikin 7 route CRUD standar seperti Route::get, Route::post, dll. Jadi tidak perlu define route satu-satu seperti diatas.
-//  ->except(['show', 'destroy']); //dengan menggunakan except Laravel tetap membuat semua route resourceful kecuali show dan destroy. except berarti pengecualian
-
-// Route::apiResource('users', Controllers\UserController::class); // ada juga apiResource  yang dimana Digunakan untuk REST API (tanpa Blade view) dan membuat hanya 5 route (tanpa create dan edit)
+Route::post('logout', Controllers\LogoutController::class)->name('logout')->middleware('auth'); //Middleware auth memastikan hanya user yang sudah login yang bisa akses route ini. 
