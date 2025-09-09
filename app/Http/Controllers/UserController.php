@@ -40,7 +40,7 @@ class UserController extends Controller
 
     public function show(User $user)
     {
-        return view('users.show',[
+        return view('users.show',[  
             'user' => $user,
         ]);
     } 
@@ -65,8 +65,10 @@ class UserController extends Controller
         return redirect('/users');
     }
 
-    // protected function requestValidated(): array //buat funtion ini agar tidak ada pengulangan, jadi pada funtiion update dan store tinggal panggil saja
-    // {
-    //     return 
-    // } //function ini di hapus karna sudah membuat UserRequest sendiri
+    public function destroy(User $user)
+    {
+        $user->delete();
+
+        return redirect('users');
+    }
 }
